@@ -74,8 +74,8 @@ jobs:
       - name: Link ONDK Rust toolchain
         run: rustup toolchain link ondk "${{ runner.temp }}/ondk/toolchains/rust"
 
-      - name: Decode Android signing key
-        run: echo ${{ secrets.SIGNING_KEY }} | base64 -d > keystore.jks
+      - name: Generate debug signing key
+        run: keytool -genkeypair -keystore keystore.jks -storepass ghostlock123 -alias ghostlock -keypass ghostlock123 -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=GhostLock,O=GhostLock,C=US" -storetype PKCS12
 
       - name: Build Release APK
         run: |
@@ -83,9 +83,9 @@ jobs:
           export ANDROID_NDK_HOME="$ONDK_HOME"
           export NDK_ROOT="$ONDK_HOME"
           export KEYSTORE_PATH="../keystore.jks"
-          export KEYSTORE_PASS="${{ secrets.KEY_STORE_PASSWORD }}"
-          export KEY_ALIAS="${{ secrets.ALIAS }}"
-          export KEY_PASSWORD="${{ secrets.KEY_PASSWORD }}"
+          export KEYSTORE_PASS="ghostlock123"
+          export KEY_ALIAS="ghostlock"
+          export KEY_PASSWORD="ghostlock123"
           ./gradlew :app:assembleRelease --no-daemon
 
       - name: Rename Release APK
