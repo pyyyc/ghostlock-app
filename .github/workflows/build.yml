@@ -76,6 +76,9 @@ jobs:
         
       - name: Clean build cache
         run: rm -f ghostlock app/src/main/jniLibs/arm64-v8a/libghostlock.so
+
+      - name: Force rebuild native
+        run: make clean && rm -f app/src/main/jniLibs/arm64-v8a/libghostlock.so
         
       - name: Generate debug signing key
         run: keytool -genkeypair -keystore keystore.jks -storepass ghostlock123 -alias ghostlock -keypass ghostlock123 -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=GhostLock,O=GhostLock,C=US" -storetype PKCS12
