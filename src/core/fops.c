@@ -404,6 +404,10 @@ void prepare_pselect_fdsets(fd_set *in, fd_set *out, fd_set *ex) {
       {8, ((uint64_t)FAKE_WAITER_PRIO << 32) | 3, "wake_prio"},
       {9, 0, "deadline"},
       {10, 0, "ww_ctx"},
+      {11, fake_lock, "pad11"},
+      {12, fake_lock, "pad12"},
+      {13, fake_lock, "pad13"},
+      {14, fake_lock, "pad14"},
     };
     for (size_t i = 0; i < sizeof(words) / sizeof(words[0]); i++) {
       struct pselect_waiter_word *w = &words[i];
