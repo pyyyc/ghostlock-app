@@ -231,6 +231,7 @@ class AndroidGhostlockRepository(context: Context) : GhostlockRepository {
                 .redirectErrorStream(true)
                 .apply {
                     environment()["GHOSTLOCK_HOME"] = workDir.absolutePath
+                    environment()["GHOSTLOCK_TCP_ROUTE"] = "0"  // force pselect route
                     environment()["TMPDIR"] = workDir.absolutePath
                     environment()["HOME"] = workDir.absolutePath
                     if (pair.primary != 0 || pair.consumer != 1) {
