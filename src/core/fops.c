@@ -393,17 +393,14 @@ void prepare_pselect_fdsets(fd_set *in, fd_set *out, fd_set *ex) {
      * the write value, children the write target; waiter->task is the
      * payload fake_task (planted fields for the PI walk). */
     struct pselect_waiter_word words[] = {
-      {2, fake_right, "tree_pc"},
-      {3, 0, "tree_right"},
-      {4, pselect_custom_target, "tree_left"},
-      {5, fake_right, "pi_pc"},
-      {6, 0, "pi_right"},
-      {7, pselect_custom_target, "pi_left"},
-      {8, fake_task, "task"},
-      {9, fake_lock, "lock"},
-      {10, ((uint64_t)FAKE_WAITER_PRIO << 32) | 3, "wake_prio"},
-      {11, 0, "deadline"},
-      {12, 0, "ww_ctx"},
+      {2, fake_right, "pi_pc"},
+      {3, 0, "pi_right"},
+      {4, pselect_custom_target, "pi_left"},
+      {5, fake_task, "task"},
+      {6, fake_lock, "lock"},
+      {7, ((uint64_t)FAKE_WAITER_PRIO << 32) | 3, "wake_prio"},
+      {8, 0, "deadline"},
+      {9, 0, "ww_ctx"},
     };
     for (size_t i = 0; i < sizeof(words) / sizeof(words[0]); i++) {
       struct pselect_waiter_word *w = &words[i];
